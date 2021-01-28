@@ -13,42 +13,44 @@ function smoothed = lowpass_mesh_smoothing(vertices, faces, iterations, lambda, 
         mu = lambda*(-1.02);
     end
     
+    % Seperation of vertices and faces to find neighbours
+    % Vertices
+    V1 = vertices(:,1);
+    V2 = vertices(:,2);
+    V3 = vertices(:,3);
+    
+    % Faces
+    F1 = faces(:,1);
+    F2 = faces(:,2);
+    F3 = faces(:,3);
+    
     % Number of vertices
     size_p = size(vertices);
    
     % Initialise smoothed matrix
-    smoothed = vertices;
+    smooth = vertices;
     
-    for f = 1:iterations
-        
         % For loops the iteration number and vertex count
-        for i = 1:size_p(1)
-            
-            neighbours = [faces(find(faces(:,1)==i),:);faces(find(faces(:,2)==i),:);faces(find(faces(:,3)==i),:)];
+        for i = 1:1
 
-            % Unique neighbours
+            neighbours = faces(find(faces==i),:);
+
             U = unique(neighbours)';
-            
-            % Deduce our original point 
+
             U(find(U==i))=[];
 
             N = length(U);
 
             % Weighting factor
             w = 1/N;
-            
-            for m = [lambda,mu*lambda]
-                for j = 1:N
 
-                smoothed(i,:) = smoothed(i,:) + m*w*(vertices(U(j),:)-vertices(i,:));
-                
-                end
+            for j = 1:N
+
+                smoothed(i,:) = smoothed(i,:) + lambda*w*(vertices(U(j),:)-vertices(i,:));
+                f
             end
+
         end
-        
-        vertices = smoothed;
-        
-    end
 end
     
     
