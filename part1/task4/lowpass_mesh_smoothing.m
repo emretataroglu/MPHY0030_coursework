@@ -5,11 +5,11 @@ function smoothed = lowpass_mesh_smoothing(vertices, faces, iterations, lambda, 
         iterations = 10;
     end
     
-    if nargin < 3 || isempty(lambda)
+    if nargin <= 3 || isempty(lambda)
         lambda = 0.9;
     end
     
-    if nargin < 4 || isempty(mu)
+    if nargin <= 4 || isempty(mu)
         mu = lambda*(-1.02);
     end
     

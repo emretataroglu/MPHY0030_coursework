@@ -12,32 +12,21 @@ figure(1)
 trimesh(faces,vertices(:,1),vertices(:,2),vertices(:,3))
 title('Unsmoothed plot');
 
-figure(2)
 % Plots for original and 3 different iterations - [5 10 25]
 subplot(2,2,1)
-trimesh(faces,vertices(:,1),vertices(:,2),vertices(:,3))
-title('Original plot');
-
-subplot(2,2,2)
 % 5 iterations
 smoothed = lowpass_mesh_smoothing(vertices,faces,5);
-trimesh(faces,smoothed(:,1),smoothed(:,2),smoothed(:,3))
-title('Plot of 5 iterations');
+trimesh(faces,vertices(:,1),vertices(:,2),vertices(:,3))
+title('5 iterations plot');
 
-subplot(2,2,3)
+subplot(2,2,1)
 % 10 iterations - default
 smoothed = lowpass_mesh_smoothing(vertices,faces,10);
-trimesh(faces,smoothed(:,1),smoothed(:,2),smoothed(:,3))
-title('Plot of 10 iterations');
+trimesh(faces,smoothed(:,1),vertices(:,2),vertices(:,3))
+title('10 iterations plot');
 
-subplot(2,2,4)
+subplot(2,2,1)
 % 25 iterations
 smoothed = lowpass_mesh_smoothing(vertices,faces,25);
 trimesh(faces,smoothed(:,1),smoothed(:,2),smoothed(:,3))
-title('Plot of 25 iterations');
-
-% figure(3)
-% % 1000 iterations
-% smoothed = lowpass_mesh_smoothing(vertices,faces,1000);
-% trimesh(faces,smoothed(:,1),smoothed(:,2),smoothed(:,3))
-% title('1000 iterations plot');
+title('25 iterations plot');
