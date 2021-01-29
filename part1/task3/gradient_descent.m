@@ -1,47 +1,26 @@
-function [val] = gradient_descent(multi_func,initial_val,step_size,max_iter,tol)
-
-norm_grad = inf; % Norm of gradient
+function val = gradient_descent(multi_func,initial_val,step_size,max_iter,tol)
+% Initialise variables
 iter = 0;
-info_iter = true;
+delta = 1;
 
-%%
-
-val = initial_val;
-
-while (iter <= max_iter)
+% While loop will be executed based on max iteration and tolerance provided
+while (iter <= max_iter) && (delta >= tol)
     
     if iter == max_iter
         fprintf('Max iteration reached.\n')
     end
     
-    % Step forward - update
+    gradient = finite_difference_gradient(multi_func,initial_val);
     
-    val = val - step_size*finite_difference_gradient(val);
-
+    % Step forward - update
+    new_val = initial_val - step_size*gradient;
+    
     % Update iteration and metrics
     iter = iter + 1;
-    
-    syms x1 x2 x3
-    
-    a1=3;
-    a2=3;
-    a3=3;
-    a4=3;
-    a5=3;
-    a6=3;
-    a7=3;
-    a8=3;
-    a9=3;
-    a0=3;
-    
-    f = a1*x1^2 + a2*x2^2 + a3*x3^2 + a4*x1*x2 + a5*x1*x3 + a6*x2*x3 + a7*x1 + a8*x2 + a9*x3 + a0;
-    
-    disp(iter);
-    disp(val);
-    disp(subs(f,[x1,x2,x3],val));
-    
-    
-end
+    delta = quadratic_polynomial(initial_val,a)-quadratic_polynomial(new_val,a);
+    initial_val = new_val;
+
 
 end
+
 

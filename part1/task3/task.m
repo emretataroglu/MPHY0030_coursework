@@ -1,9 +1,7 @@
 close all;
 clc;
 
-function [theta] = gradient_descent(multi_func,initial_val,step_size,max_iter,tol,grad_func)
-
-
+function theta = gradient_descent(multi_func,initial_val,step_size,max_iter,tol,grad_func)
 %% Main objective of this function is to minimise error function
 % Error function - (((1/2)*N)*((grad_func-multi_func)*theta)^2)
 % Given that N is the number of data points
@@ -62,28 +60,7 @@ function [partial_der] = finite_difference_gradient(multi_func, vect)
 end
 
 
-function vect = swap_vector(vect,i,val)
 
-% Into the vector 'vect' - swap val with element i
-vect(i) = val;
-
-end
-
-function theta = quadratic_polynomial()
-
-% Function
-syms x1 x2 x3
-syms a1 a2 a3 a4 a5 a6 a7 a8 a9 a0
-
-f = a1*x1^2 + a2*x2^2 + a3*x3^2 + a4*x1*x2 + a5*x1*x3 + a6*x2*x3 + a7*x1 + a8*x2 + a9*x3 + a0;
-
-% Gradient
-dfdx1 = diff(f,x1);
-dfdx2 = diff(f,x2);
-dfdx3 = diff(f,x3);
-
-% Construct Jacobian
-J = [subs(dfdx1,[x1,x2,x3], [x1(1),x2(1),x3(1)]) subs(dfdx2, [x1,x2,x3], [x1(1),x2(1),x3(1) subs(dfdx3, [x1,x2,x3], [x1(1),x2(1),x3(1)])]];
 
 
 end

@@ -1,0 +1,24 @@
+function f = quadratic_polynomial(x,a)
+
+f = a(1)*x(1)^2, a(2)*x(2)^2, a(3)*x(3)^2, a(4)*x(1)*x(2), a(5)*x(1)*x(3), a(6)*x(2)*x(3), a(7)*x(1), a(8)*x(2), a(9)*x(3), a(10)*;
+
+end
+
+function f = quadratic_polynomial(x,a)
+
+% Function
+syms x1 x2 x3
+syms a1 a2 a3 a4 a5 a6 a7 a8 a9 a0
+
+f = a1*x1^2 + a2*x2^2 + a3*x3^2 + a4*x1*x2 + a5*x1*x3 + a6*x2*x3 + a7*x1 + a8*x2 + a9*x3 + a0;
+
+% Gradient
+dfdx1 = diff(f,x1);
+dfdx2 = diff(f,x2);
+dfdx3 = diff(f,x3);
+
+% Construct Jacobian
+J = [subs(dfdx1,[x1,x2,x3], [x1(1),x2(1),x3(1)]) subs(dfdx2, [x1,x2,x3], [x1(1),x2(1),x3(1) subs(dfdx3, [x1,x2,x3], [x1(1),x2(1),x3(1)])]];
+
+
+end
