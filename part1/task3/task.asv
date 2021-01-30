@@ -1,0 +1,20 @@
+close all;
+clear;
+clc;
+
+format SHORTG
+
+% Random x vector
+x = [5, 3, 1];
+
+% Generate coefficients
+a = randn(1,10);
+
+tolerance = 10^5;
+step_size = 10^-2;
+max_iteration = 10^3;
+
+f = 
+new_val = gradient_descent(x,a,
+
+

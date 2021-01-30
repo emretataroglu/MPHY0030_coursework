@@ -1,4 +1,4 @@
-function val = gradient_descent(multi_func,initial_val,step_size,max_iter,tol)
+function new_val = gradient_descent(multi_func,initial_val,step_size,max_iter,tol)
 % Initialise variables
 iter = 0;
 delta = 1;
@@ -21,6 +21,7 @@ while (iter <= max_iter) && (delta >= tol)
     initial_val = new_val;
 
 
+end
 end
 
 
