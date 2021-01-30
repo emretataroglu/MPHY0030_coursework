@@ -1,0 +1,183 @@
+%% Task 2 - Plotting Bivariate Gaussian (Normal) probability density surfaces
+clc;
+clear; 
+
+%% References:
+%[Pope 2008]: Algorithms for Ellipsoids
+    
+%% Generate data
+% 10000x3 for mean and cov functions to work properly
+data = randn(10000,3);
+size_d = size(data);
+
+% Mean of data
+mu = mean(data);
+
+% Covariance matrix (sigma)
+sigma = cov(data);
+
+% Density functions
+pdf = bi_gaussian_pdf(data,mu,sigma);
+
+%% Plotting ellipsoids using eigenvalues and eigenvectors
+% Finding major and minor axis (semi)
+
+% Diagonal matrix D of eigenvalues
+% Full matrix V corresponding to the eigenvectors
+[V,D] = eig(sigma);
+
+% Chi-squared values for percentiles
+c_ten = chi2inv(0.1, 3);
+c_fifty = chi2inv(0.5, 3);
+c_ninety = chi2inv(0.9, 3); 
+
+c = zeros(1,3);
+c(1) = sqrt(c_ten);
+c(2) = sqrt(c_fifty);
+c(3) = sqrt(c_ninety);
+
+%% 10th percentile
+x10 = zeros(6,3);
+x10(1,:) = mu' + c(1)*D(1, 1).*V(:, 1);
+x10(2,:) = mu' - c(1)*D(1, 1).*V(:, 1);
+x10(3,:) = mu' + c(1)*D(2, 2).*V(:, 2);
+x10(4,:) = mu' - c(1)*D(2, 2).*V(:, 2);
+x10(5,:) = mu' + c(1)*D(3, 3).*V(:, 3);
+x10(6,:) = mu' - c(1)*D(3, 3).*V(:, 3);
+
+%% 50th percentile
+x50 = zeros(6,3);
+x50(1,:) = mu' + c(2)*D(1, 1).*V(:, 1);
+x50(2,:) = mu' - c(2)*D(1, 1).*V(:, 1);
+x50(3,:) = mu' + c(2)*D(2, 2).*V(:, 2);
+x50(4,:) = mu' - c(2)*D(2, 2).*V(:, 2);
+x50(5,:) = mu' + c(2)*D(3, 3).*V(:, 3);
+x50(6,:) = mu' - c(2)*D(3, 3).*V(:, 3);
+
+%% 90th percentile
+x90 = zeros(6,3);
+x90(1,:) = mu' + c(3)*D(1, 1).*V(:, 1);
+x90(2,:) = mu' - c(3)*D(1, 1).*V(:, 1);
+x90(3,:) = mu' + c(3)*D(2, 2).*V(:, 2);
+x90(4,:) = mu' - c(3)*D(2, 2).*V(:, 2);
+x90(5,:) = mu' + c(3)*D(3, 3).*V(:, 3);
+x90(6,:) = mu' - c(3)*D(3, 3).*V(:, 3);
+
+%% Finding distances of the axis for plotting (for every percentile)
+x10_dist = zeros(3,1);
+x10_dist(1) = norm(x10(1,:)-x10(2,:));
+x10_dist(2) = norm(x10(3,:)-x10(4,:));
+x10_dist(3) = norm(x10(5,:)-x10(6,:));
+
+x50_dist = zeros(3,1);
+x50_dist(1) = norm(x10(1,:)-x10(2,:));
+x50_dist(2) = norm(x10(3,:)-x10(4,:));
+x50_dist(3) = norm(x10(5,:)-x10(6,:));
+
+x90_dist = zeros(3,1);
+x90_dist(1) = norm(x10(1,:)-x10(2,:));
+x90_dist(2) = norm(x10(3,:)-x10(4,:));
+x90_dist(3) = norm(x10(5,:)-x10(6,:));
+
+%% Finding angle between two vectors
+% cos? = (u • v)/(||u|| • ||v||);
+
+angles_xyz = zeros(3,1);
+
+% Radians
+angles_xyz(1) = acos((V(1,1)/norm(V(:,1))));
+angles_xyz(2) = acos((V(2,2)/norm(V(:,2))));
+angles_xyz(3) = acos((V(3,3)/norm(V(:,3))));
+
+% Degrees
+angles_xyz = rad2deg(angles_xyz);
+
+%% Plotting 10th
+figure(1)
+[x1, x2, x3] = ellipsoid(mu(1),mu(2),mu(3),x10(1),x10(2),x10(3));
+e_10 = surf(x1, x2, x3);
+rotate(e_10, [1 0 0], angles_xyz(1));
+rotate(e_10, [0 1 0], angles_xyz(2));
+rotate(e_10, [0 0 1], angles_xyz(3));
+
+xlim([-1 1])
+ylim([-1 1])
+zlim([-1 1])
+
+title('Ellipsoid representing the 10th percentile');
+
+
+%% Plotting 50th
+figure(2)
+[x1, x2, x3] = ellipsoid(mu(1),mu(2),mu(3),x50(1),x50(2),x50(3));
+e_50 = surf(x1, x2, x3);
+rotate(e_50, [1 0 0], angles_xyz(1));
+rotate(e_50, [0 1 0], angles_xyz(2));
+rotate(e_50, [0 0 1], angles_xyz(3));
+
+xlim([-3 3])
+ylim([-3 3])
+zlim([-3 3])
+
+title('Ellipsoid representing the 50th percentile');
+
+%% Plotting 90th
+figure(3)
+[x1, x2, x3] = ellipsoid(mu(1),mu(2),mu(3),x90(1),x90(2),x90(3));
+e_90 = surf(x1, x2, x3);
+rotate(e_90, [1 0 0], angles_xyz(1));
+rotate(e_90, [0 1 0], angles_xyz(2));
+rotate(e_90, [0 0 1], angles_xyz(3));
+
+xlim([-5 5])
+ylim([-5 5])
+zlim([-5 5])
+
+title('Ellipsoid representing the 90th percentile');
+
+legendtext = sprintf('r squared for model 1 = %f', rSquared1);
+
+legend(legendText1);
+
+%% Sigma values
+% A = sigma(1, 1);
+% B = sigma(1, 2);
+% C = sigma(2, 1);
+% d = sigma(2, 2);
+% 
+% Eigenvalues
+% lambda1 = D(1,1);
+% lambda2 = D(2,2);
+% 
+% t = linspace(0, 2*pi);
+% 
+% if B == 0
+%     if A >= C
+%         theha = 0;
+%     else
+%         theta = pi/2;
+%     end
+% else
+%     theta = atan2(lambda1-A, B);
+% end
+% 
+% zt = zeros([1, length(t)]);
+% 
+% for i = 1:3
+%     xt = c(i)*sqrt(lambda1)*cos(theta)*cos(t) - c(i)*sqrt(lambda2)*sin(theta)*sin(t) + mu(1);
+%     yt = c(i)*sqrt(lambda1)*sin(theta)*cos(t) + c(i)*sqrt(lambda2)*cos(theta)*sin(t) + mu(2);
+%     
+%     surf([xt;xt],[yt;yt],[zt;zt+p(i)]);
+% end
+
+%% End
+
+
+
+
+
+
+
+
+
+

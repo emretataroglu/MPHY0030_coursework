@@ -1,0 +1,13 @@
+function gradient = finite_difference_gradient(x,a)
+% Calculate partial derivatives using (central) finite difference method
+format SHORTG
+% Define h
+h = 10^-3;
+% Partial derivative for x(1)
+
+% Partial derivative for x(2)
+
+% Partial derivative for x(3)
+
+
+end
