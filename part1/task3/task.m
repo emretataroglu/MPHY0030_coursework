@@ -2,24 +2,18 @@ close all;
 clear;
 clc;
 
-format SHORTG
-
 % Random x vector
-x = [5, 3, 1];
+x = [1,3,5];
 
 % Generate coefficients
-a = randn(1,10);
+a = [1,2,3,4,5,6,7,8,9,10];
 
 % Initialise variables for gradient descent function
-tolerance = 10^5;
-step_size = 10^-2;
-max_iteration = 10^3;
+tolerance = 10^-3;
+step_size = 10^-6;
+max_iteration = 10^6;
 
-% Acquire function
-f = quadratic_polynomial(x,a);
-
-new_val = gradient_descent(f,x,step_size,max_iteration,tolerance);
-
-gradient = finite_difference_gradient(new_val,a);
+new_val = gradient_descent(@quadratic_polynomial,x,step_size,max_iteration,tolerance,@finite_difference_gradient,a);
+disp(new_val)
 
 
