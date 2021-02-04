@@ -1,0 +1,55 @@
+% Image3D
+
+classdef Image3D
+ 
+    properties
+        
+        x_img 
+        y_img
+        z_img
+        vol
+        voxdims
+        size
+        x_max
+        x_min
+        y_max
+        y_min
+        z_max
+        z_min
+        dim
+
+    end
+    
+    methods (Static)
+        function img_3D = Image3D(vol,voxdims)
+            
+            img_3D.vol = vol;
+            img_3D.voxdims = voxdims;
+            img_3D.size = size(vol);
+            img_3D.dim = length(size(vol));
+
+                for i = 1:img_3D.size(img_3D.size(1))
+                    img_3D.x_img(i,:,:);
+                end
+                
+                for j = 1:img_3D.size(img_3D.size(2))
+                    img_3D.y_img(:,j,:)
+                end
+                
+                for k = 1:img_3D.size(img_3D.size(3))
+                    img_3D.z_img(:,:,k);
+                end
+                
+                img_3D.x_min = min(img_3D.x_img);
+                img_3D.x_max = max(img_3D.x_img);
+                
+                img_3D.y_min = min(img_3D.y_img);
+                img_3D.y_max = max(img_3D.y_img);
+                
+                img_3D.z_min = min(img_3D.z_img);
+                img_3D.z_max = max(img_3D.z_img);
+            
+   
+        end
+    end
+end
