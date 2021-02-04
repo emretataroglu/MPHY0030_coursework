@@ -26,7 +26,8 @@ classdef RBFSpline
      
             % Only finding alpha since beta is absent for Gaussian RBF Kernel
             
-            alpha = inv(R).*t_pi
+            alpha = inv(R).*t_points(:,1);
+            
             % Output
             % [alpha beta] = spline coefficients
             
@@ -50,18 +51,17 @@ classdef RBFSpline
             % q_points = data matrix with training points
             % c_points = data matrix with test samples
             
-            nq = size(q_points,1);
             nc = size(c_points,1);
             
-            % Sum of the elements, squared
-            nq_sq = sum(q_points.^2,1);
-            nc_sq = sum(c_points.^2,1);
+            % Initialise Kernel
+            K = zeros(nc);
             
-            % Euclidean distances
-            D = (ones(nc,1)*nq_sq)' + ones(nq,1)*nc_sq - 2*q_points'*c_points;
-            
-            % Kernel
-            K = exp(-D/(2*sigma^2));
+            for i = 1:nc
+                for j = 1:i-1
+                    D = norm(c_points(i,:)-c_points(j,:));
+                    K(i,j) = exp(-D/(2.*sigma(i)));
+                end
+            end
             
             % Outputs
             % K = [KX, KY, KZ] = Kernel values between the query points and the control point
