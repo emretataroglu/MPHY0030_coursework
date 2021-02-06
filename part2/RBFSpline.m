@@ -4,23 +4,21 @@ classdef RBFSpline
 %     end
     methods (Static)
         
-        function alpha = fit(t_points, lambda, sigma)
+        function alpha = fit(q_points, lambda, sigma, K)
             % Inputs
             % s_points = source points
             % t_points = target points (qk)
             % lambda = aprox. localisation error
-            n = size(t_points,1); % Size of source points
+            n = size(q_points,1); % Size of source points
             
             % Construct W
             W = diag(1./sigma.^2);
-            
-            K = RBFSpline.kernel_gaussian(t_points, sigma);
             
             R = K + lambda*inv(W);
      
             % Only finding alpha since beta is absent for Gaussian RBF Kernel
             
-            alpha = inv(R)*t_points;
+            alpha = inv(R)*q_points;
             
             % Output
             % [alpha beta] = spline coefficients
@@ -49,10 +47,10 @@ classdef RBFSpline
             % Initialise Kernel
             K = zeros(nc);
             
-            for i = 1:nc
+            for i = 2:nc
                 for j = 1:i-1
                     D = norm(c_points(i,:)-c_points(j,:));
-                    K(i,j) = exp(-D/(2.*sigma(i)));
+                    K(i,j) = exp(-D^2/(2.*sigma(i)^2));
                 end
             end
             

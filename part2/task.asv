@@ -3,16 +3,20 @@ clc
 clear
 close all 
 
-x = linspace(0,1,5);
-y = linspace(0,1,5);
+x = linspace(0,1,15);
+y = linspace(0,1,15);
 
 x2 = linspace(0,1,100);
 y2 = linspace(0,1,100);
 
 [X, Y] = meshgrid(x,y);
-[X2, Y2] = meshgrid(x2,y2);
+% [x2, y2] = meshgrid(x2,y2);
 
 z = exp((X.*cos(3*pi*X))).*(exp((Y.*cos(3*pi*Y))));
+
+% z2 = exp((x2.*cos(3*pi*x2)));
+% 
+% z2 = z2 .* (exp((x2.*cos(3*pi*x2))));
 
 k = 1;
 
@@ -26,6 +30,9 @@ for i = 1:length(x)
         k = k + 1;
     end
 end
+
+figure;
+mesh(x,y,z)
 
 sigma = ones(length(x)*length(y),1)*0.1;
 
@@ -55,11 +62,6 @@ for i = 1:length(x2)
     
 end
 
-z_true = exp((X2.*cos(3*pi*X2))).*(exp((Y2.*cos(3*pi*Y2))));
+z_true =
 figure;
 mesh(x2,y2,z0)
-hold on
-plot3(X,Y,z,'.r','MarkerSize',10)
-
-figure;
-mesh(X2,Y2,z_true)
