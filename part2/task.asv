@@ -16,12 +16,12 @@ z = exp((X.*cos(3*pi*X))).*(exp((Y.*cos(3*pi*Y))));
 
 k = 1;
 
-for i2 = 1:length(x)
-    for j2 = 1:length(y)
+for i = 1:length(x)
+    for j = 1:length(y)
         
-        c_p(k,:) = [x(i2),y(j2)];
+        c_p(k,:) = [x(i),y(j)];
         
-        q(k,:) = z(i2,j2);
+        q(k,:) = z(i,j);
         
         k = k + 1;
     end
@@ -57,7 +57,6 @@ end
 
 z_true = exp((X2.*cos(3*pi*X2))).*(exp((Y2.*cos(3*pi*Y2))));
 
-tq = RBFSpline.evaluate(q_p,c_p,alpha,sigma);
 
 
 % figure;

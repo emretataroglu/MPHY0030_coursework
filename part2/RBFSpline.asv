@@ -29,14 +29,16 @@ classdef RBFSpline
             % c_points = control points
             
             nq = size(q_points,1);
-            
-            t_q_points = zeros(nq,1);
-            
-            for i = 1:nq
+            hq = size(q_points,2);
+            nc = size(c_points,1);
+
+            K = RBFSpline.kernel_gaussian(c_points, sigma);
+
+            for i = 1:length(nq)
 
                 for m = 1:length(alpha)
-                    D = norm(q_points(i,:) - c_points(m,:));
-                    t_q_points(i) = t_q_points(i)+(alpha(m,1)*exp(-D^2/(2.*sigma(m,1)^2)));
+                    D = norm(q_points(i,:) - c_p(m,:));
+                    z0(i) = z0(i)+(alpha(m,1)*exp(-D^2/(2.*sigma(m,1)^2)));
                 end
 
             end
