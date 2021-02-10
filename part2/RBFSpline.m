@@ -23,6 +23,7 @@ classdef RBFSpline
             % Output
             % [alpha beta] = spline coefficients
         end
+        
         function t_q_points = evaluate(q_points, c_points, alpha, sigma)
             % Inputs
             % q_points = query points that are needed to be transformed

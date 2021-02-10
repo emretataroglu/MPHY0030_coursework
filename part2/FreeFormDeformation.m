@@ -66,6 +66,12 @@ classdef FreeFormDeformation
             
         end
         
+        function warpedImage = warp_image(image3D, RBFSpline)
+        end
+        
+        function transformed = random_transform(~)
+        end
+        
         
     end
     

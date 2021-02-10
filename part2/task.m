@@ -44,10 +44,10 @@ for i = 1:length(x2)
         
         q_p(k,:) = [x2(i),y2(j)];
         
-%         for m = 1:length(alpha)
-%             D = norm(q_p(k,:) - c_p(m,:));
-%             z0(i,j) = z0(i,j)+(alpha(m,1)*exp(-D^2/(2.*sigma(m,1)^2)));
-%         end
+        for m = 1:length(alpha)
+            D = norm(q_p(k,:) - c_p(m,:));
+            z0(i,j) = z0(i,j)+(alpha(m,1)*exp(-D^2/(2.*sigma(m,1)^2)));
+        end
         
         k = k + 1;
         
@@ -57,13 +57,13 @@ end
 
 z_true = exp((X2.*cos(3*pi*X2))).*(exp((Y2.*cos(3*pi*Y2))));
 
-tq = RBFSpline.evaluate(q_p,c_p,alpha,sigma);
+% tq = RBFSpline.evaluate(q_p,c_p,alpha,sigma);
 
 
-% figure;
-% mesh(x2,y2,z0)
-% hold on
-% plot3(X,Y,z,'.r','MarkerSize',10)
-% 
-% figure;
-% mesh(X2,Y2,z_true)
+figure;
+mesh(x2,y2,z0)
+hold on
+plot3(X,Y,z,'.r','MarkerSize',10)
+
+figure;
+mesh(X2,Y2,z_true)
