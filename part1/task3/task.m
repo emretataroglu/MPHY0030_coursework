@@ -16,4 +16,5 @@ max_iteration = 10^6;
 new_val = gradient_descent(@quadratic_polynomial,x,step_size,max_iteration,tolerance,@finite_difference_gradient,a);
 disp(new_val)
 
-
+% f
+% f = quadratic_polynomial(x,a);

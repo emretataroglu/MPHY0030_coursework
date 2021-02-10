@@ -2,7 +2,7 @@ function data = simple_image_read(filePath)
 
     read_fileID = fopen(filePath,'r');
     dim_val = fread(read_fileID,[1,3],'int');
-    disp(dimval(3));
+    disp(dim_val(3));
 
     full_val = [];
 
