@@ -136,37 +136,6 @@ zlim([-5 5])
 
 title('Ellipsoid representing the 90th percentile');
 
-%% Showing "ellipsoids" based on weights on pdf
-% A = sigma(1, 1);
-% B = sigma(1, 2);
-% C = sigma(2, 1);
-% d = sigma(2, 2);
-% 
-% Eigenvalues
-% lambda1 = D(1,1);
-% lambda2 = D(2,2);
-% 
-% t = linspace(0, 2*pi);
-% 
-% if B == 0
-%     if A >= C
-%         theha = 0;
-%     else
-%         theta = pi/2;
-%     end
-% else
-%     theta = atan2(lambda1-A, B);
-% end
-% 
-% zt = zeros([1, length(t)]);
-% 
-% for i = 1:3
-%     xt = c(i)*sqrt(lambda1)*cos(theta)*cos(t) - c(i)*sqrt(lambda2)*sin(theta)*sin(t) + mu(1);
-%     yt = c(i)*sqrt(lambda1)*sin(theta)*cos(t) + c(i)*sqrt(lambda2)*cos(theta)*sin(t) + mu(2);
-%     
-%     surf([xt;xt],[yt;yt],[zt;zt+p(i)]);
-% end
-
 %% End
 
 
